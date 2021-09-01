@@ -30,8 +30,7 @@ int main(int argc, char** argv){
 
     if(compareStrings(argv[1], findNan)){
         std::cout<<"findNan received"<<std::endl;
-        char* line = parserTool.readLine(2);
-
+        parserTool.findNan();
     }else if(compareStrings(argv[1], calculateMean)){
         std::cout<<"calculateMean received"<<std::endl;
     }
