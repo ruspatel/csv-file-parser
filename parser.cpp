@@ -42,7 +42,64 @@ int parser::findNan(char* fileName){
     return 0;
 }
 
-int parser::calculateMean(){
+int parser::calculateColumnMean(char* fileName, char* columnName){
+    int columnEntries = 0;
+    int columnSum = 0;
+    char* line = new char[256];
+
+    FILE *fptr = fopen(fileName, "r");
+    if(fptr == NULL){
+        std::cout<<"Error: Cannot open file"<<std::endl;
+        return -1;
+    }
+    
+    std::string columnStr = "";
+    int columnIndex = -1;
+
+    if(fgets(line, 256, fptr) != NULL){
+        for(int i=0; i < strlen(line); i++){
+            if(line[i] != ','){
+                columnStr += line[i];
+            }
+            if(line[i] == ',' || i == strlen(line)-1){
+                columnIndex++;
+                const char* ColumnStrName = columnStr.c_str();
+                if(this->fileHelperTool.compareStrings(ColumnStrName, columnName)){
+                    break;
+                }else{
+                    columnStr = "";
+                }
+            }
+        }
+    }
+
+    std::string rowVal;
+    while(fgets(line, 256, fptr) != NULL){
+        int lineLength = strlen(line);
+        int commaCount = 0;
+        rowVal = "";
+        for(int i=0; i < lineLength; i++){
+            if(line[i] == ',' || i == strlen(line)-1){
+                if(commaCount == columnIndex && rowVal != ""){
+                    columnEntries++;
+                    try{
+                        columnSum += std::stoi(rowVal);
+                    }catch(std::invalid_argument e){
+                        std::cout<<"Error: non-numeric row entry"<<std::endl;
+                        return -1;
+                    }
+                    break;
+                }
+                commaCount++;
+            }else if(commaCount == columnIndex){
+                rowVal += line[i];
+            }
+        }
+    }
+
+    int columnMean = columnSum/columnEntries;
+
+    std::cout<<columnName<<" Mean: "<<columnMean<<std::endl;
 
     return 0;
 }

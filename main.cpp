@@ -3,7 +3,6 @@
 #include <iostream>
 #include <string>
 #include "parser.h"
-#include "fileHelper.h"
 
 int main(int argc, char** argv){
     parser parserTool;
@@ -18,12 +17,13 @@ int main(int argc, char** argv){
     const char* calculateMean = "calculateMean";
 
     if(fileHelperTool.compareStrings(argv[1], findNan)){
-        std::cout<<"findNan received"<<std::endl;
         if(fileHelperTool.isFileNameProvided(argc)){
             parserTool.findNan(argv[2]);
         }
     }else if(fileHelperTool.compareStrings(argv[1], calculateMean)){
-        std::cout<<"calculateMean received"<<std::endl;
+        if(fileHelperTool.isColumnNameProvided(argc)){
+            parserTool.calculateColumnMean(argv[2], argv[3]);
+        }
     }
     
     return 0;

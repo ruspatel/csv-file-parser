@@ -31,6 +31,15 @@ bool FileHelper::isFileNameProvided(int numInputParams){
     return true;
 }
 
+bool FileHelper::isColumnNameProvided(int numInputParams){
+    if(numInputParams < 4){
+        std::cout<<"Please provide a column name"<<std::endl;
+        return false;
+    }
+
+    return true;
+}
+
 FileHelper::~FileHelper(){ // destructor
     
 }
