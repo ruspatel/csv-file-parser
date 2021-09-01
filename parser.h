@@ -6,7 +6,7 @@ class parser{
     public:
         parser();
         ~parser();
-        int findNan();
+        int findNan(char* fileName);
         int calculateMean();
         char* readLine(int lineNumber);
 

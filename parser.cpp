@@ -6,10 +6,10 @@ parser::parser(){ // constructor
 
 }
 
-int parser::findNan(){
+int parser::findNan(char* fileName){
     char* line = new char[256];
 
-    FILE *fptr = fopen("sample.csv", "r");
+    FILE *fptr = fopen(fileName, "r");
 
     if(fptr == NULL){
         std::cout<<"Error: Cannot open file"<<std::endl;
